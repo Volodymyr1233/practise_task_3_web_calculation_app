@@ -1,0 +1,34 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <form method="post" class="p-4 border rounded" style="min-width: 320px;">
+        <div class="mb-3">
+            <label for="firstNumber" class="form-label">First number:</label>
+            <input type="number" class="form-control" id="firstNumber" name="firstNumber" required />
+        </div>
+        <div class="mb-3">
+            <label for="secondNumber" class="form-label">Second number:</label>
+            <input type="number" class="form-control" id="secondNumber" name="secondNumber" required />
+        </div>
+        <div class="mb-3">
+            <label for="operation" class="form-label">Choose operation:</label>
+            <select class="form-select" id="operation" name="operation" required>
+                <option value="+">+</option>
+                <option value="-">-</option>
+                <option value="*">*</option>
+            </select>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Calculate</button>
+        </div>
+    </form>
+
+    @if (ViewData["Result"] != null)
+    {
+        <div class="mt-4 p-4 border rounded text-center" style="min-width: 320px;">
+            <h4>Result: @ViewData["Result"]</h4>
+        </div>
+    }
+</div>
