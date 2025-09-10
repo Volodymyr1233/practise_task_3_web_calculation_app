@@ -36,5 +36,18 @@ namespace CalculationApplicationWeb.Models
                 return calculationResponse.result;
             }
         }
+
+        public static async Task<List<CalculationHistoryItem>> GetHistory()
+        {
+            string base_url = "https://localhost:7007/api/Calculation/history";
+            using (var client = new HttpClient())
+            {
+                var response = await client.GetAsync(base_url);
+                response.EnsureSuccessStatusCode();
+                var responseBody = await response.Content.ReadAsStringAsync();
+                var history = JsonSerializer.Deserialize<List<CalculationHistoryItem>>(responseBody);
+                return history;
+            }
+        }
     }
 }

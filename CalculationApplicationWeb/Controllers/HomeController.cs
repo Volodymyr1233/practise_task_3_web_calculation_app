@@ -13,8 +13,10 @@ namespace CalculationApplicationWeb.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var history = await CalculationRequest.GetHistory();
+            ViewData["History"] = history;
             return View();  
         }
 
@@ -22,6 +24,8 @@ namespace CalculationApplicationWeb.Controllers
         public async Task<IActionResult> Index(int firstNumber, int secondNumber, string operation)
         {
             int calculationResult = await CalculationRequest.SendRequest(firstNumber, secondNumber, operation);
+            var history = await CalculationRequest.GetHistory();
+            ViewData["History"] = history;
             ViewData["Result"] = calculationResult;
             return View();
         }

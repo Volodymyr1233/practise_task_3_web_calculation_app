@@ -1,34 +1,70 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    var history = ViewData["History"] as List<CalculationApplicationWeb.Models.CalculationHistoryItem>;
 }
 
-<div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
-    <form method="post" class="p-4 border rounded" style="min-width: 320px;">
-        <div class="mb-3">
-            <label for="firstNumber" class="form-label">First number:</label>
-            <input type="number" class="form-control" id="firstNumber" name="firstNumber" required />
-        </div>
-        <div class="mb-3">
-            <label for="secondNumber" class="form-label">Second number:</label>
-            <input type="number" class="form-control" id="secondNumber" name="secondNumber" required />
-        </div>
-        <div class="mb-3">
-            <label for="operation" class="form-label">Choose operation:</label>
-            <select class="form-select" id="operation" name="operation" required>
-                <option value="+">+</option>
-                <option value="-">-</option>
-                <option value="*">*</option>
-            </select>
-        </div>
-        <div class="text-center">
-            <button type="submit" class="btn btn-primary">Calculate</button>
-        </div>
-    </form>
-
-    @if (ViewData["Result"] != null)
-    {
-        <div class="mt-4 p-4 border rounded text-center" style="min-width: 320px;">
-            <h4>Result: @ViewData["Result"]</h4>
-        </div>
-    }
+<div class="d-flex justify-content-center align-items-center" style="min-height: 80vh; gap: 20px;">
+    <div>
+        <form method="post" class="p-4 border rounded" style="min-width: 320px;">
+            <div class="mb-3">
+                <label for="firstNumber" class="form-label">First number:</label>
+                <input type="number" class="form-control" id="firstNumber" name="firstNumber" required />
+            </div>
+            <div class="mb-3">
+                <label for="secondNumber" class="form-label">Second number:</label>
+                <input type="number" class="form-control" id="secondNumber" name="secondNumber" required />
+            </div>
+            <div class="mb-3">
+                <label for="operation" class="form-label">Choose operation:</label>
+                <select class="form-select" id="operation" name="operation" required>
+                    <option value="+">+</option>
+                    <option value="-">-</option>
+                    <option value="*">*</option>
+                </select>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Calculate</button>
+            </div>
+            @if (ViewData["Result"] != null)
+            {
+                <div class="mt-4 p-4 border rounded text-center" style="min-width: 320px;">
+                    <h4>Result: @ViewData["Result"]</h4>
+                </div>
+            }
+        </form>
+    </div>
+    
+    <div class="p-4 border rounded bg-light" style="min-width: 00px; max-height: 450px; overflow-y: auto;">
+        <h5 class="text-center mb-3">Calculation History</h5>
+        <table class="table table-bordered table-striped mb-0">
+            <thead class="table-secondary">
+                <tr>
+                    <th>First number</th>
+                    <th>Second number</th>
+                    <th>Operation</th>
+                    <th>Result</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (history != null)
+                {
+                    foreach (CalculationApplicationWeb.Models.CalculationHistoryItem item in history)
+                    {
+                        <tr>
+                            <td>@item.first_num</td>
+                            <td>@item.second_num</td>
+                            <td>@item.operation</td>
+                            <td>@item.result</td>
+                        </tr>
+                    }
+                } else
+                {
+                    <tr>
+                        <td colspan="4" class="text-center text-muted">No calculations yet.</td>
+                    </tr>
+                }
+                
+            </tbody>
+        </table>
+    </div>
 </div>
